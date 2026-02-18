@@ -8,7 +8,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = `${protocol}://${rootDomain}`;
   const staticRoutes = [
     '',
-    '/admin',
     '/book',
     '/solutions',
     '/industries',
