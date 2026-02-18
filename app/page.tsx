@@ -32,7 +32,7 @@ export default function HomePage() {
               weeks.
             </h1>
             <p className="text-lg text-muted-foreground">
-              ActaOS automates inventory, risk classification, obligation
+              Annexora automates inventory, risk classification, obligation
               mapping, and evidence traceability so your Annex III systems are
               prepared for conformity checks and notified body audits.
             </p>
@@ -387,7 +387,7 @@ export default function HomePage() {
                   Is this legal advice?
                 </p>
                 <p>
-                  No. ActaOS provides operational compliance tooling and
+                  No. Annexora provides operational compliance tooling and
                   evidence workflows.
                 </p>
               </div>
@@ -405,7 +405,7 @@ export default function HomePage() {
                   Are you a notified body?
                 </p>
                 <p>
-                  No. ActaOS prepares systems and evidence so audits are faster
+                  No. Annexora prepares systems and evidence so audits are faster
                   and more predictable, but we do not conduct conformity
                   assessments.
                 </p>

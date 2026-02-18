@@ -30,7 +30,7 @@ export default function PilotSuccessPage() {
             ) : (
               <Button asChild>
                 <a
-                  href="mailto:hello@actaos.example?subject=Pilot%20Onboarding"
+                  href="mailto:hello@annexora.com?subject=Pilot%20Onboarding"
                   target="_blank"
                   rel="noreferrer"
                 >

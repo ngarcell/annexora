@@ -14,7 +14,7 @@ export default function SecurityPage() {
             Security
           </p>
           <h1 className="font-heading text-3xl font-semibold text-foreground">
-            Security overview for ActaOS
+            Security overview for Annexora
           </h1>
           <p className="mt-2 text-sm text-muted-foreground">
             Built for compliance teams that need audit-ready, defensible
@@ -38,7 +38,7 @@ export default function SecurityPage() {
               Data handling principles
             </h2>
             <p className="mt-2 text-sm text-muted-foreground">
-              ActaOS focuses on evidence metadata, approvals, and traceability.
+              Annexora focuses on evidence metadata, approvals, and traceability.
               Source documents remain under your control.
             </p>
             <ul className="mt-4 space-y-2 text-sm text-muted-foreground">
@@ -69,7 +69,7 @@ export default function SecurityPage() {
               Infrastructure notes
             </h2>
             <p className="mt-2 text-sm text-muted-foreground">
-              ActaOS runs on managed infrastructure with standard encryption in
+              Annexora runs on managed infrastructure with standard encryption in
               transit and secure secret management. We can share deployment
               details during procurement.
             </p>

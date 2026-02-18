@@ -68,8 +68,8 @@ export default function PrivacyPage() {
             <div className="mt-4 text-sm text-muted-foreground">
               <p>
                 Email:{' '}
-                <a className="underline" href="mailto:hello@actaos.example">
-                  hello@actaos.example
+                <a className="underline" href="mailto:hello@annexora.com">
+                  hello@annexora.com
                 </a>
               </p>
               <p className="mt-2">

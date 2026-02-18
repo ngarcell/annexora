@@ -155,7 +155,7 @@ export default async function RegionCountryPage({
                   Is this legal advice?
                 </p>
                 <p className="mt-1 text-sm text-muted-foreground">
-                  No. ActaOS provides operational readiness tooling, not legal
+                  No. Annexora provides operational readiness tooling, not legal
                   counsel.
                 </p>
               </div>

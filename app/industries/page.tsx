@@ -125,7 +125,7 @@ export default function IndustriesIndexPage() {
               Trust & methodology
             </h2>
             <p className="mt-2 text-sm text-muted-foreground">
-              ActaOS playbooks map Annex III categories to evidence and control
+              Annexora playbooks map Annex III categories to evidence and control
               requirements relevant for each industry.
             </p>
             <p className="mt-3 text-sm text-muted-foreground">

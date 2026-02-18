@@ -17,7 +17,7 @@ export default function TrustPage() {
             Governance-ready AI compliance infrastructure
           </h1>
           <p className="mt-2 text-sm text-muted-foreground">
-            ActaOS structures evidence, traceability, and readiness so your AI
+            Annexora structures evidence, traceability, and readiness so your AI
             systems are prepared for conformity assessment.
           </p>
           <div className="mt-6 flex flex-wrap gap-3">
@@ -37,7 +37,7 @@ export default function TrustPage() {
       <main className="mx-auto w-full max-w-5xl px-6 pt-10">
         <Card className="border border-border/70 bg-white/90 p-6">
           <h2 className="font-heading text-xl font-semibold">
-            What ActaOS delivers
+            What Annexora delivers
           </h2>
           <p className="mt-2 text-sm text-muted-foreground">
             We provide governance tooling, not legal judgments.
@@ -49,7 +49,7 @@ export default function TrustPage() {
             <li>Audit-ready packs and traceability matrices.</li>
           </ul>
           <p className="mt-4 text-xs text-muted-foreground">
-            ActaOS is not a notified body and does not perform conformity
+            Annexora is not a notified body and does not perform conformity
             assessments.
           </p>
         </Card>
@@ -114,8 +114,8 @@ export default function TrustPage() {
             <div className="mt-4 space-y-2 text-sm text-muted-foreground">
               <p>
                 Email:{' '}
-                <a className="underline" href="mailto:hello@actaos.example">
-                  hello@actaos.example
+                <a className="underline" href="mailto:hello@annexora.com">
+                  hello@annexora.com
                 </a>
               </p>
               <p>

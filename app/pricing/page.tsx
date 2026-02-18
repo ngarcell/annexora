@@ -9,9 +9,9 @@ import { getFeaturedIndustryPages } from '@/lib/industry-pseo';
 import { getRegionCountries } from '@/lib/region-pseo';
 
 export const metadata: Metadata = {
-  title: 'Pricing | ActaOS',
+  title: 'Pricing | Annexora',
   description:
-    'Transparent pricing for EU AI Act readiness. Paid pilot delivery, subscription options, and how ActaOS works.'
+    'Transparent pricing for EU AI Act readiness. Paid pilot delivery, subscription options, and how Annexora works.'
 };
 
 const priceDisplay =
@@ -36,7 +36,7 @@ const faqItems = [
   {
     question: 'Do you provide legal advice?',
     answer:
-      'No. ActaOS delivers operational compliance tooling and evidence workflows. Legal review stays with qualified counsel.'
+      'No. Annexora delivers operational compliance tooling and evidence workflows. Legal review stays with qualified counsel.'
   }
 ];
 
@@ -201,12 +201,12 @@ export default function PricingPage() {
               Trust & methodology
             </h2>
             <p className="mt-2 text-sm text-muted-foreground">
-              ActaOS playbooks are derived from EU AI Act Annex III categories
+              Annexora playbooks are derived from EU AI Act Annex III categories
               and high-risk obligations. We maintain a review checklist and
               update guidance as standards evolve.
             </p>
             <p className="mt-3 text-sm text-muted-foreground">
-              ActaOS is not a notified body and does not perform conformity
+              Annexora is not a notified body and does not perform conformity
               assessments. We prepare evidence so audits are faster and more
               predictable.
             </p>

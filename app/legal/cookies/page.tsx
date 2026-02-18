@@ -32,8 +32,8 @@ export default function CookiesPage() {
           </p>
           <p className="mt-3 text-sm text-muted-foreground">
             For questions, contact{' '}
-            <a className="underline" href="mailto:hello@actaos.example">
-              hello@actaos.example
+            <a className="underline" href="mailto:hello@annexora.com">
+              hello@annexora.com
             </a>
             .
           </p>

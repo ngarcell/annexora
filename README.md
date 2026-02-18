@@ -1,6 +1,6 @@
-# ActaOS — EU AI Act Compliance OS
+# Annexora — EU AI Act Compliance OS
 
-ActaOS is a multi-tenant compliance workspace for Annex III deployers. It provides AI inventory management, risk classification, obligation mapping, evidence vaults, and audit-ready packs for the EU AI Act.
+Annexora is a multi-tenant compliance workspace for Annex III deployers. It provides AI inventory management, risk classification, obligation mapping, evidence vaults, and audit-ready packs for the EU AI Act.
 
 ## Features
 
@@ -39,9 +39,16 @@ ActaOS is a multi-tenant compliance workspace for Annex III deployers. It provid
 2. Configure environment variables (optional for persistence):
 
    ```
-   KV_REST_API_URL=your_redis_url
-   KV_REST_API_TOKEN=your_redis_token
+   cp .env.example .env.local
    ```
+
+   Minimum required for local marketing pages:
+   - `NEXT_PUBLIC_SITE_URL=http://localhost:3000`
+   - `NEXT_PUBLIC_ROOT_DOMAIN=localhost:3000`
+
+   Optional for persistence:
+   - `KV_REST_API_URL`
+   - `KV_REST_API_TOKEN`
 
 3. Start the development server:
 
@@ -88,6 +95,7 @@ Environment variables:
 - `STRIPE_WEBHOOK_SECRET`
 - `STRIPE_PILOT_PRICE_ID`
 - `NEXT_PUBLIC_SITE_URL`
+- `NEXT_PUBLIC_ROOT_DOMAIN`
 - `NEXT_PUBLIC_PILOT_PRICE_DISPLAY=€15,000`
 
 ## Admin Auth (Basic)
@@ -118,3 +126,4 @@ Display a Cal.com or Calendly booking link across CTAs:
 ## Deployment
 
 This application is designed for Vercel. Add a wildcard DNS record (`*.yourdomain.com`) and configure the root domain in Vercel to enable subdomain routing.
+Set `NEXT_PUBLIC_SITE_URL` and `NEXT_PUBLIC_ROOT_DOMAIN` in Vercel project settings so sitemap, robots, and subdomain routing resolve to your production domain.

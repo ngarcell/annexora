@@ -48,7 +48,7 @@ function jsonLdForPage(page: ReturnType<typeof getPseoPage>) {
     url: `${baseUrl}/solutions/${page.slug}`,
     provider: {
       '@type': 'Organization',
-      name: 'ActaOS',
+      name: 'Annexora',
       url: baseUrl
     },
     areaServed: 'EU',
@@ -148,7 +148,7 @@ export default async function SolutionPage({
             {page.description}
           </p>
           <p className="mt-3 text-sm text-muted-foreground">
-            This ActaOS playbook focuses on {page.heroTagline.toLowerCase()} so
+            This Annexora playbook focuses on {page.heroTagline.toLowerCase()} so
             your team can move from scattered evidence to audit-ready controls.
           </p>
           <div className="mt-4 grid gap-3 md:grid-cols-3">
@@ -173,7 +173,7 @@ export default async function SolutionPage({
               Obligations we map
             </h2>
             <p className="mt-2 text-sm text-muted-foreground">
-              ActaOS auto-maps Annex III obligations and assigns accountable
+              Annexora auto-maps Annex III obligations and assigns accountable
               owners.
             </p>
             <ul className="mt-4 space-y-3 text-sm text-muted-foreground">

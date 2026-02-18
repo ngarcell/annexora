@@ -13,10 +13,10 @@ export default function TermsPage() {
             Terms of service
           </p>
           <h1 className="font-heading text-3xl font-semibold text-foreground">
-            ActaOS terms
+            Annexora terms
           </h1>
           <p className="mt-2 text-sm text-muted-foreground">
-            These terms govern the use of ActaOS and related services.
+            These terms govern the use of Annexora and related services.
           </p>
         </div>
       </header>
@@ -28,7 +28,7 @@ export default function TermsPage() {
               Use of the service
             </h2>
             <p className="mt-2 text-sm text-muted-foreground">
-              ActaOS provides governance and audit-readiness tooling. You are
+              Annexora provides governance and audit-readiness tooling. You are
               responsible for ensuring your systems meet applicable regulatory
               requirements.
             </p>
@@ -39,7 +39,7 @@ export default function TermsPage() {
               No legal advice
             </h2>
             <p className="mt-2 text-sm text-muted-foreground">
-              ActaOS is not a notified body and does not provide legal advice or
+              Annexora is not a notified body and does not provide legal advice or
               conformity assessments. Consult qualified counsel for formal
               reviews.
             </p>

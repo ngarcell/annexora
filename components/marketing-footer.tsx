@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { BrandLogo } from '@/components/brand-logo';
 
 export function MarketingFooter() {
   return (
@@ -6,9 +7,7 @@ export function MarketingFooter() {
       <div className="mx-auto w-full max-w-6xl px-6 py-12">
         <div className="grid gap-8 md:grid-cols-4">
           <div>
-            <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground">
-              ActaOS
-            </p>
+            <BrandLogo compact />
             <p className="mt-3 text-sm text-muted-foreground">
               Compliance tooling for Annex III high-risk AI systems.
             </p>
@@ -73,7 +72,7 @@ export function MarketingFooter() {
               <Link href="/legal/cookies" className="hover:text-foreground">
                 Cookie policy
               </Link>
-              <a className="hover:text-foreground" href="mailto:hello@actaos.example">
+              <a className="hover:text-foreground" href="mailto:hello@annexora.com">
                 Contact support
               </a>
             </div>

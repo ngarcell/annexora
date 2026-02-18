@@ -162,7 +162,7 @@ export default function BookPage() {
               obligation checklists for audit preparation.
             </p>
             <p className="mt-3 text-sm text-muted-foreground">
-              ActaOS is not a notified body and does not perform conformity
+              Annexora is not a notified body and does not perform conformity
               assessments.
             </p>
             <p className="mt-3 text-sm text-muted-foreground">

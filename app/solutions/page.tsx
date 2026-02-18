@@ -125,7 +125,7 @@ export default function SolutionsIndexPage() {
               Trust & methodology
             </h2>
             <p className="mt-2 text-sm text-muted-foreground">
-              ActaOS playbooks are aligned to EU AI Act risk tiers and Annex III
+              Annexora playbooks are aligned to EU AI Act risk tiers and Annex III
               categories. We update guidance as standards evolve.
             </p>
             <p className="mt-3 text-sm text-muted-foreground">

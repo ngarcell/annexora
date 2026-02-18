@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { BrandLogo } from '@/components/brand-logo';
 
 const navLinks = [
   { href: '/solutions', label: 'Solutions' },
@@ -15,13 +16,11 @@ export function MarketingNav() {
   return (
     <header className="relative z-10 border-b border-border/60 bg-white/80 backdrop-blur">
       <div className="mx-auto flex w-full max-w-6xl items-center justify-between px-6 py-5">
-        <Link href="/" className="flex flex-col">
-          <span className="text-xs uppercase tracking-[0.3em] text-muted-foreground">
-            ActaOS
-          </span>
-          <span className="font-heading text-lg font-semibold text-foreground">
-            EU AI Act Compliance OS
-          </span>
+        <Link
+          href="/"
+          className="rounded-xl px-1 py-1 transition hover:bg-muted/40"
+        >
+          <BrandLogo />
         </Link>
         <nav className="hidden items-center gap-6 text-sm text-muted-foreground lg:flex">
           {navLinks.map((link) => (

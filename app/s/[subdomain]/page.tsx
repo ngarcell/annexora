@@ -53,7 +53,7 @@ export async function generateMetadata({
   }
 
   return {
-    title: `${tenant.name} | ActaOS`,
+    title: `${tenant.name} | Annexora`,
     description: `Compliance workspace for ${tenant.name}`
   };
 }

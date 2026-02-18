@@ -54,7 +54,7 @@ function jsonLdForPage(page: ReturnType<typeof getIndustryPage>) {
     url: `${baseUrl}/industries/${page.slug}`,
     provider: {
       '@type': 'Organization',
-      name: 'ActaOS',
+      name: 'Annexora',
       url: baseUrl
     },
     areaServed: 'EU',
@@ -246,7 +246,7 @@ export default async function IndustryPage({
             {page.description}
           </p>
           <p className="mt-3 text-sm text-muted-foreground">
-            ActaOS aligns {page.h1.toLowerCase()} with EU AI Act obligations and
+            Annexora aligns {page.h1.toLowerCase()} with EU AI Act obligations and
             gives stakeholders the evidence they need for audit readiness.
           </p>
           <div className="mt-4 grid gap-3 md:grid-cols-3">

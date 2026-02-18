@@ -12,7 +12,7 @@ export type PilotNotification = {
 };
 
 const resendApiKey = process.env.RESEND_API_KEY;
-const fromEmail = process.env.RESEND_FROM || 'ActaOS <hello@actaos.example>';
+const fromEmail = process.env.RESEND_FROM || 'Annexora <hello@annexora.com>';
 const notifyEmail = process.env.NOTIFY_EMAIL;
 
 async function sendEmail({

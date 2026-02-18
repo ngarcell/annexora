@@ -55,7 +55,7 @@ function jsonLdForPage(page: ReturnType<typeof getRegionPage>) {
     url: `${baseUrl}${page.path}`,
     provider: {
       '@type': 'Organization',
-      name: 'ActaOS',
+      name: 'Annexora',
       url: baseUrl
     },
     areaServed: page.country,
