@@ -3,12 +3,14 @@ import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { MarketingNav } from '@/components/marketing-nav';
 import { MarketingFooter } from '@/components/marketing-footer';
+import { SeoBreadcrumbJsonLd } from '@/components/seo-breadcrumb-json-ld';
 import { RoiCalculator } from './roi-calculator';
 
 export default function CalculatorPage() {
   return (
     <div className="min-h-screen bg-[#f6f4ef] pb-16">
       <MarketingNav />
+      <SeoBreadcrumbJsonLd items={[{ name: 'Home', href: '/' }, { name: 'Calculator', href: '/calculator' }]} />
       <header className="border-b border-border/60 bg-white/90">
         <div className="mx-auto w-full max-w-5xl px-6 py-10">
           <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">

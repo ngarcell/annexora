@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { MarketingNav } from '@/components/marketing-nav';
 import { MarketingFooter } from '@/components/marketing-footer';
+import { SeoBreadcrumbJsonLd } from '@/components/seo-breadcrumb-json-ld';
 import {
   getFeaturedIndustryPages,
   getIndustryPage,
@@ -183,6 +184,7 @@ export default async function IndustryPage({
   return (
     <div className="min-h-screen bg-[#f6f4ef] pb-16">
       <MarketingNav />
+      <SeoBreadcrumbJsonLd items={[{ name: 'Home', href: '/' }, { name: 'Industries', href: '/industries' }, { name: page.h1, href: `/industries/${page.slug}` }]} />
       <header className="border-b border-border/60 bg-white/90">
         <div className="mx-auto flex w-full max-w-5xl items-center justify-between px-6 py-8">
           <div>

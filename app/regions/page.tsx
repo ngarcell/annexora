@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { MarketingNav } from '@/components/marketing-nav';
 import { MarketingFooter } from '@/components/marketing-footer';
+import { SeoBreadcrumbJsonLd } from '@/components/seo-breadcrumb-json-ld';
 import { RegionsDirectory } from './regions-directory';
 import { getRegionCountries, getRegionPages } from '@/lib/region-pseo';
 
@@ -14,6 +15,7 @@ export default function RegionsIndexPage() {
   return (
     <div className="min-h-screen bg-[#f6f4ef] pb-16">
       <MarketingNav />
+      <SeoBreadcrumbJsonLd items={[{ name: 'Home', href: '/' }, { name: 'Regions', href: '/regions' }]} />
       <header className="border-b border-border/60 bg-white/90">
         <div className="mx-auto w-full max-w-5xl px-6 py-10">
           <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">

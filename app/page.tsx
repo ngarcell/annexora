@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { MarketingNav } from '@/components/marketing-nav';
 import { MarketingFooter } from '@/components/marketing-footer';
+import { SeoBreadcrumbJsonLd } from '@/components/seo-breadcrumb-json-ld';
 import { getFeaturedPseoPages } from '@/lib/pseo';
 import { getFeaturedIndustryPages } from '@/lib/industry-pseo';
 import { getRegionCountries } from '@/lib/region-pseo';
@@ -17,6 +18,7 @@ export default function HomePage() {
   return (
     <div className="min-h-screen bg-[#f6f4ef] text-foreground">
       <MarketingNav />
+      <SeoBreadcrumbJsonLd items={[{ name: 'Home', href: '/' }]} />
       <div className="relative overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(20,62,90,0.12),_transparent_55%)]" />
         <div className="absolute -top-20 right-0 h-72 w-72 rounded-full bg-[radial-gradient(circle,_rgba(237,183,69,0.28),_transparent_70%)] blur-2xl" />
