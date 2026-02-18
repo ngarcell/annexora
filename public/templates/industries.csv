@@ -1,0 +1,2 @@
+name,slug,summary,evidence,stakeholders,use_cases
+Financial services,financial-services,"AI systems impacting lending, risk scoring, and access to essential services.",credit model validation reports|fairness audits across cohorts|customer decision logs,Risk|Compliance|Product,Credit scoring & access to services|Employment & workers management

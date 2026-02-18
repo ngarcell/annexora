@@ -11,7 +11,7 @@ export default function NotFound() {
 
   useEffect(() => {
     // Extract subdomain from URL if we're on a subdomain page
-    if (pathname?.startsWith('/subdomain/')) {
+    if (pathname?.startsWith('/s/')) {
       const extractedSubdomain = pathname.split('/')[2];
       if (extractedSubdomain) {
         setSubdomain(extractedSubdomain);
@@ -27,27 +27,30 @@ export default function NotFound() {
   }, [pathname]);
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-blue-50 to-white p-4">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold tracking-tight text-gray-900">
+    <div className="flex min-h-screen flex-col items-center justify-center bg-[#f6f4ef] p-6">
+      <div className="max-w-lg text-center">
+        <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
+          Workspace not found
+        </p>
+        <h1 className="font-heading text-3xl font-semibold text-foreground">
           {subdomain ? (
             <>
-              <span className="text-blue-600">{subdomain}</span>.{rootDomain}{' '}
-              doesn't exist
+              {subdomain}.{rootDomain} is not provisioned yet
             </>
           ) : (
-            'Subdomain Not Found'
+            'This workspace does not exist yet'
           )}
         </h1>
-        <p className="mt-3 text-lg text-gray-600">
-          This subdomain hasn't been created yet.
+        <p className="mt-3 text-sm text-muted-foreground">
+          Create a new compliance workspace to start your Annex III readiness
+          program.
         </p>
         <div className="mt-6">
           <Link
-            href={`${protocol}://${rootDomain}`}
-            className="rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700"
+            href={`${protocol}://${rootDomain}#workspace`}
+            className="rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90"
           >
-            {subdomain ? `Create ${subdomain}` : `Go to ${rootDomain}`}
+            Create workspace
           </Link>
         </div>
       </div>

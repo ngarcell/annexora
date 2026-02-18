@@ -1,16 +1,22 @@
 import type { Metadata } from 'next';
-import { Geist } from 'next/font/google';
+import { Bricolage_Grotesque, Manrope } from 'next/font/google';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import './globals.css';
 
-const geistSans = Geist({
-  variable: '--font-geist-sans',
+const headingFont = Bricolage_Grotesque({
+  variable: '--font-heading',
+  subsets: ['latin']
+});
+
+const bodyFont = Manrope({
+  variable: '--font-body',
   subsets: ['latin']
 });
 
 export const metadata: Metadata = {
-  title: 'Platforms Starter Kit',
-  description: 'Next.js template for building a multi-tenant SaaS.'
+  title: 'ActaOS | EU AI Act Compliance OS',
+  description:
+    'Audit-ready compliance for Annex III AI systems. Inventory, risk classification, obligation mapping, evidence vaults, and audit packs.'
 };
 
 export default function RootLayout({
@@ -20,7 +26,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} antialiased`}>
+      <body
+        className={`${headingFont.variable} ${bodyFont.variable} antialiased`}
+      >
         {children}
         <SpeedInsights />
       </body>

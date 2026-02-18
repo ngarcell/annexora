@@ -1,25 +1,24 @@
-# Next.js Multi-Tenant Example
+# ActaOS — EU AI Act Compliance OS
 
-A production-ready example of a multi-tenant application built with Next.js 15, featuring custom subdomains for each tenant.
+ActaOS is a multi-tenant compliance workspace for Annex III deployers. It provides AI inventory management, risk classification, obligation mapping, evidence vaults, and audit-ready packs for the EU AI Act.
 
 ## Features
 
-- ✅ Custom subdomain routing with Next.js middleware
-- ✅ Tenant-specific content and pages
-- ✅ Shared components and layouts across tenants
-- ✅ Redis for tenant data storage
-- ✅ Admin interface for managing tenants
-- ✅ Emoji support for tenant branding
-- ✅ Support for local development with subdomains
-- ✅ Compatible with Vercel preview deployments
+- AI system inventory with deployment context and owners
+- Risk classification aligned to AI Act tiers
+- Annex III obligation mapping with controls and evidence tracking
+- Evidence vault with approvals and versioning metadata
+- Audit pack generation per high-risk system
+- Subdomain-based multi-tenant workspaces
+- Admin control plane for cross-tenant monitoring
 
 ## Tech Stack
 
 - [Next.js 15](https://nextjs.org/) with App Router
 - [React 19](https://react.dev/)
-- [Upstash Redis](https://upstash.com/) for data storage
+- [Upstash Redis](https://upstash.com/) with in-memory fallback
 - [Tailwind 4](https://tailwindcss.com/) for styling
-- [shadcn/ui](https://ui.shadcn.com/) for the design system
+- [shadcn/ui](https://ui.shadcn.com/) for UI primitives
 
 ## Getting Started
 
@@ -27,64 +26,95 @@ A production-ready example of a multi-tenant application built with Next.js 15, 
 
 - Node.js 18.17.0 or later
 - pnpm (recommended) or npm/yarn
-- Upstash Redis account (for production)
+- Upstash Redis account (optional for production persistence)
 
 ### Installation
 
-1. Clone the repository:
-
-   ```bash
-   git clone https://github.com/vercel/platforms.git
-   cd platforms
-   ```
-
-2. Install dependencies:
+1. Install dependencies:
 
    ```bash
    pnpm install
    ```
 
-3. Set up environment variables:
-   Create a `.env.local` file in the root directory with:
+2. Configure environment variables (optional for persistence):
 
    ```
    KV_REST_API_URL=your_redis_url
    KV_REST_API_TOKEN=your_redis_token
    ```
 
-4. Start the development server:
+3. Start the development server:
 
    ```bash
    pnpm dev
    ```
 
-5. Access the application:
+4. Access the application:
    - Main site: http://localhost:3000
    - Admin panel: http://localhost:3000/admin
-   - Tenants: http://[tenant-name].localhost:3000
+   - Workspaces: http://[workspace].localhost:3000
+
+## API Endpoints
+
+All endpoints expect `tenant` as a query parameter or `x-tenant` header.
+
+- `GET /api/ai-systems`
+- `POST /api/ai-systems`
+- `GET /api/ai-systems/:id`
+- `POST /api/ai-systems/:id/risk-assessments`
+- `GET /api/ai-systems/:id/obligations`
+- `POST /api/ai-systems/:id/audit-pack`
+- `POST /api/controls/:id/evidence`
+
+## PSEO Landing Pages
+
+- Use-case playbooks: `/solutions/[slug]` (100 pages)
+- Industry playbooks: `/industries/[slug]` (100 pages)
+- Country + industry playbooks: `/regions/[country]/industries/[industry]/[angle]` (100 pages)
+
+### CSV-driven lists
+
+- Edit `data/industries.csv` to control industry playbooks.
+- Edit `data/countries.csv` to control country playbooks.
+- Lists accept `|`-separated values for multi-value fields.
+- Admin upload panel: `/admin/data`
+- Lead export panel: `/admin/leads`
+- Paid pilots admin: `/admin/pilots`
+
+## Payments (Stripe)
+
+Environment variables:
+- `STRIPE_SECRET_KEY`
+- `STRIPE_WEBHOOK_SECRET`
+- `STRIPE_PILOT_PRICE_ID`
+- `NEXT_PUBLIC_SITE_URL`
+- `NEXT_PUBLIC_PILOT_PRICE_DISPLAY=€15,000`
+
+## Admin Auth (Basic)
+
+Protect `/admin` and export endpoints with Basic Auth:
+- `ADMIN_USER`
+- `ADMIN_PASS`
+
+## Email Notifications (Resend)
+
+Receive lead and pilot notifications via Resend:
+- `RESEND_API_KEY`
+- `RESEND_FROM`
+- `NOTIFY_EMAIL`
+
+## Booking Link
+
+Display a Cal.com or Calendly booking link across CTAs:
+- `NEXT_PUBLIC_BOOKING_URL`
 
 ## Multi-Tenant Architecture
 
-This application demonstrates a subdomain-based multi-tenant architecture where:
-
-- Each tenant gets their own subdomain (`tenant.yourdomain.com`)
-- The middleware handles routing requests to the correct tenant
-- Tenant data is stored in Redis using a `subdomain:{name}` key pattern
-- The main domain hosts the landing page and admin interface
-- Subdomains are dynamically mapped to tenant-specific content
-
-The middleware (`middleware.ts`) intelligently detects subdomains across various environments (local development, production, and Vercel preview deployments).
+- Each workspace gets a dedicated subdomain (`workspace.yourdomain.com`)
+- Middleware rewrites subdomain traffic to `/s/[subdomain]`
+- Tenant data is stored under `tenant:{subdomain}` keys
+- AI systems live under `tenant:{subdomain}:systems`
 
 ## Deployment
 
-This application is designed to be deployed on Vercel. To deploy:
-
-1. Push your repository to GitHub
-2. Connect your repository to Vercel
-3. Configure environment variables
-4. Deploy
-
-For custom domains, make sure to:
-
-1. Add your root domain to Vercel
-2. Set up a wildcard DNS record (`*.yourdomain.com`) on Vercel
+This application is designed for Vercel. Add a wildcard DNS record (`*.yourdomain.com`) and configure the root domain in Vercel to enable subdomain routing.

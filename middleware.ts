@@ -1,5 +1,6 @@
 import { type NextRequest, NextResponse } from 'next/server';
 import { rootDomain } from '@/lib/utils';
+import { isAdminAuthorized, unauthorizedResponse } from '@/lib/admin-auth';
 
 function extractSubdomain(request: NextRequest): string | null {
   const url = request.url;
@@ -44,13 +45,20 @@ export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
   const subdomain = extractSubdomain(request);
 
+  if (pathname.startsWith('/admin')) {
+    const authHeader = request.headers.get('authorization');
+    if (!isAdminAuthorized(authHeader)) {
+      return unauthorizedResponse();
+    }
+  }
+
   if (subdomain) {
-    // Block access to admin page from subdomains
+    // Block access to admin page from workspaces
     if (pathname.startsWith('/admin')) {
       return NextResponse.redirect(new URL('/', request.url));
     }
 
-    // For the root path on a subdomain, rewrite to the subdomain page
+    // For the root path on a subdomain, rewrite to the workspace page
     if (pathname === '/') {
       return NextResponse.rewrite(new URL(`/s/${subdomain}`, request.url));
     }
