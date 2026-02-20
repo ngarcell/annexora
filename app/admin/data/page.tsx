@@ -2,16 +2,21 @@ import Link from 'next/link';
 import { Card } from '@/components/ui/card';
 import { UploadPanel } from './upload-panel';
 import { getCountries, getIndustries } from '@/lib/pseo-data';
+import { getArtifacts, getIntents } from '@/lib/high-intent-data';
 import { protocol, rootDomain } from '@/lib/utils';
 
 export default function AdminDataPage() {
   let industryCount = 0;
   let countryCount = 0;
+  let intentCount = 0;
+  let artifactCount = 0;
   let error: string | null = null;
 
   try {
     industryCount = getIndustries().length;
     countryCount = getCountries().length;
+    intentCount = getIntents().length;
+    artifactCount = getArtifacts().length;
   } catch (err) {
     error = err instanceof Error ? err.message : 'Failed to load CSV data.';
   }
@@ -28,7 +33,8 @@ export default function AdminDataPage() {
               CSV data management
             </h1>
             <p className="text-sm text-muted-foreground">
-              Update industry and country playbooks from CSV files.
+              Update country, industry, intent, and artifact playbooks from CSV
+              files.
             </p>
           </div>
           <Link
@@ -40,7 +46,7 @@ export default function AdminDataPage() {
         </div>
 
         <Card className="border border-border/70 bg-white/90 p-6">
-          <div className="grid gap-4 md:grid-cols-3">
+          <div className="grid gap-4 md:grid-cols-5">
             <div>
               <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
                 Industries
@@ -55,6 +61,22 @@ export default function AdminDataPage() {
               </p>
               <p className="mt-2 text-2xl font-semibold text-foreground">
                 {countryCount}
+              </p>
+            </div>
+            <div>
+              <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
+                Intents
+              </p>
+              <p className="mt-2 text-2xl font-semibold text-foreground">
+                {intentCount}
+              </p>
+            </div>
+            <div>
+              <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
+                Artifacts
+              </p>
+              <p className="mt-2 text-2xl font-semibold text-foreground">
+                {artifactCount}
               </p>
             </div>
             <div>
@@ -95,6 +117,9 @@ export default function AdminDataPage() {
                       <th className="px-3 py-2 text-left">evidence</th>
                       <th className="px-3 py-2 text-left">stakeholders</th>
                       <th className="px-3 py-2 text-left">use_cases</th>
+                      <th className="px-3 py-2 text-left">high_risk_scenarios</th>
+                      <th className="px-3 py-2 text-left">provider_risk_points</th>
+                      <th className="px-3 py-2 text-left">buying_committee</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -113,6 +138,15 @@ export default function AdminDataPage() {
                       <td className="px-3 py-2">
                         Credit scoring & access to services
                       </td>
+                      <td className="px-3 py-2">
+                        eligibility decisions|risk automation
+                      </td>
+                      <td className="px-3 py-2">
+                        incomplete docs|weak release governance
+                      </td>
+                      <td className="px-3 py-2">
+                        Compliance|Legal|Product
+                      </td>
                     </tr>
                   </tbody>
                 </table>
@@ -129,6 +163,11 @@ export default function AdminDataPage() {
                       <th className="px-3 py-2 text-left">name</th>
                       <th className="px-3 py-2 text-left">slug</th>
                       <th className="px-3 py-2 text-left">region</th>
+                      <th className="px-3 py-2 text-left">authority_name</th>
+                      <th className="px-3 py-2 text-left">authority_url</th>
+                      <th className="px-3 py-2 text-left">language_note</th>
+                      <th className="px-3 py-2 text-left">enforcement_note</th>
+                      <th className="px-3 py-2 text-left">market_signal</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -136,6 +175,11 @@ export default function AdminDataPage() {
                       <td className="px-3 py-2">Germany</td>
                       <td className="px-3 py-2">germany</td>
                       <td className="px-3 py-2">EU</td>
+                      <td className="px-3 py-2">Germany AI supervisory authority</td>
+                      <td className="px-3 py-2">digital-strategy.ec.europa.eu</td>
+                      <td className="px-3 py-2">English-first implementation assets</td>
+                      <td className="px-3 py-2">Maintain auditable evidence trails</td>
+                      <td className="px-3 py-2">Buyers prioritizing readiness before 2026</td>
                     </tr>
                   </tbody>
                 </table>

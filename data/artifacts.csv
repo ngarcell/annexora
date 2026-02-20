@@ -1,0 +1,9 @@
+name,slug,article_reference,delivery_outcome,cta_label
+Annex IV template,annex-iv-template,Annex IV,"structured technical documentation baseline for high-risk systems",Get Annex IV plan
+FRIA template,fria-template,Article 27,"repeatable fundamental-rights impact assessment workflow",Scope FRIA workflow
+Risk management plan,risk-management-plan,Article 9,"living risk register with mitigation owners and review cadence",Build risk plan
+Post-market monitoring plan,post-market-monitoring-plan,Article 72,"operational monitoring and incident escalation playbook",Design monitoring plan
+Transparency notice,transparency-notice,Article 13,"auditable notice workflow for affected users and stakeholders",Create transparency pack
+Incident reporting SOP,incident-reporting-sop,Article 73,"serious incident triage and reporting process with ownership",Implement incident SOP
+Human oversight SOP,human-oversight-sop,Article 14,"override, escalation, and intervention evidence workflow",Deploy oversight SOP
+Data governance checklist,data-governance-checklist,Article 10,"quality, lineage, and bias-control checklist tied to obligations",Start data checklist

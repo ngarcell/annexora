@@ -24,7 +24,7 @@ export default function SolutionsIndexPage() {
             Annex III compliance playbooks
           </h1>
           <p className="mt-2 text-sm text-muted-foreground">
-            Explore 100 readiness pages for high-risk AI systems.
+            Explore {pages.length} readiness pages for high-risk AI systems.
           </p>
           <div className="mt-6 flex flex-wrap gap-3">
             <Button asChild>

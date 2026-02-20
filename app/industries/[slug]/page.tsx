@@ -39,6 +39,10 @@ export async function generateMetadata({
     description: page.description,
     alternates: {
       canonical: `/industries/${page.slug}`
+    },
+    robots: {
+      index: false,
+      follow: true
     }
   };
 }

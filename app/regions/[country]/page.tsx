@@ -33,7 +33,11 @@ export async function generateMetadata({
 
   return {
     title: `EU AI Act compliance in ${match.name}`,
-    description: `Country-specific AI Act readiness guides for ${match.name}.`
+    description: `Country-specific AI Act readiness guides for ${match.name}.`,
+    robots: {
+      index: false,
+      follow: true
+    }
   };
 }
 

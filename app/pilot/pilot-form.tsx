@@ -1,6 +1,6 @@
 'use client';
 
-import { useActionState } from 'react';
+import { useActionState, useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -12,15 +12,67 @@ type PilotState = {
   success?: boolean;
 };
 
+type AttributionState = {
+  landingPath: string;
+  cluster: string;
+  intentSlug: string;
+  role: string;
+  utmSource: string;
+  utmMedium: string;
+  utmCampaign: string;
+  utmTerm: string;
+  gclid: string;
+  referrer: string;
+};
+
 export function PilotForm() {
   const [state, action, isPending] = useActionState<PilotState, FormData>(
     createPilotCheckoutAction,
     {}
   );
+  const [attribution, setAttribution] = useState<AttributionState>({
+    landingPath: '',
+    cluster: '',
+    intentSlug: '',
+    role: '',
+    utmSource: '',
+    utmMedium: '',
+    utmCampaign: '',
+    utmTerm: '',
+    gclid: '',
+    referrer: ''
+  });
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    setAttribution({
+      landingPath: `${window.location.pathname}${window.location.search}`,
+      cluster: params.get('cluster') || '',
+      intentSlug:
+        params.get('intent') || params.get('intentSlug') || params.get('intent_slug') || '',
+      role: params.get('role') || '',
+      utmSource: params.get('utm_source') || '',
+      utmMedium: params.get('utm_medium') || '',
+      utmCampaign: params.get('utm_campaign') || '',
+      utmTerm: params.get('utm_term') || '',
+      gclid: params.get('gclid') || '',
+      referrer: document.referrer || ''
+    });
+  }, []);
 
   return (
     <Card className="border border-border/70 bg-white/95 p-6">
       <form action={action} className="space-y-4">
+        <input type="hidden" name="landingPath" value={attribution.landingPath} />
+        <input type="hidden" name="cluster" value={attribution.cluster} />
+        <input type="hidden" name="intentSlug" value={attribution.intentSlug} />
+        <input type="hidden" name="role" value={attribution.role} />
+        <input type="hidden" name="utm_source" value={attribution.utmSource} />
+        <input type="hidden" name="utm_medium" value={attribution.utmMedium} />
+        <input type="hidden" name="utm_campaign" value={attribution.utmCampaign} />
+        <input type="hidden" name="utm_term" value={attribution.utmTerm} />
+        <input type="hidden" name="gclid" value={attribution.gclid} />
+        <input type="hidden" name="referrer" value={attribution.referrer} />
         <div className="grid gap-4 md:grid-cols-2">
           <div className="space-y-2">
             <Label htmlFor="name">Full name</Label>

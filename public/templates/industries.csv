@@ -1,2 +1,2 @@
-name,slug,summary,evidence,stakeholders,use_cases
-Financial services,financial-services,"AI systems impacting lending, risk scoring, and access to essential services.",credit model validation reports|fairness audits across cohorts|customer decision logs,Risk|Compliance|Product,Credit scoring & access to services|Employment & workers management
+name,slug,summary,evidence,stakeholders,use_cases,high_risk_scenarios,provider_risk_points,buying_committee
+Financial services,financial-services,"AI systems impacting lending, risk scoring, and access to essential services.",credit model validation reports|fairness audits across cohorts|customer decision logs,Risk|Compliance|Product,Credit scoring & access to services|Employment & workers management,credit eligibility decisions|fraud automation systems|workforce scoring models,incomplete technical documentation|weak model change approvals|insufficient robustness testing,Compliance|Legal|Risk|Product

@@ -48,13 +48,21 @@ export async function generateMetadata({
 
   if (!tenant) {
     return {
-      title: rootDomain
+      title: rootDomain,
+      robots: {
+        index: false,
+        follow: false
+      }
     };
   }
 
   return {
     title: `${tenant.name} | Annexora`,
-    description: `Compliance workspace for ${tenant.name}`
+    description: `Compliance workspace for ${tenant.name}`,
+    robots: {
+      index: false,
+      follow: false
+    }
   };
 }
 

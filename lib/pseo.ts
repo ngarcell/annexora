@@ -191,14 +191,13 @@ function buildPages(): PseoPageInternal[] {
     });
   });
 
-  const sliced = pages.slice(0, 100);
-  const slugSet = new Set(sliced.map((page) => page.slug));
-  if (slugSet.size !== sliced.length) {
+  const slugSet = new Set(pages.map((page) => page.slug));
+  if (slugSet.size !== pages.length) {
     throw new Error('PSEO slug generation produced duplicates.');
   }
 
-  return sliced.map((page, index) => {
-    const related = sliced
+  return pages.map((page) => {
+    const related = pages
       .filter((other) => other.slug !== page.slug)
       .filter(
         (other) =>
@@ -209,7 +208,7 @@ function buildPages(): PseoPageInternal[] {
       .map((item) => item.slug);
 
     if (related.length < 6) {
-      const fallback = sliced
+      const fallback = pages
         .filter((other) => other.slug !== page.slug)
         .slice(0, 8 - related.length)
         .map((item) => item.slug);

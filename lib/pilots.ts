@@ -8,6 +8,17 @@ export type Pilot = {
   company: string;
   useCase: string;
   systemCount: string;
+  landingPath?: string;
+  cluster?: string;
+  intentSlug?: string;
+  role?: string;
+  utmSource?: string;
+  utmMedium?: string;
+  utmCampaign?: string;
+  utmTerm?: string;
+  gclid?: string;
+  referrer?: string;
+  intentScore?: number;
   amountTotal: number | null;
   currency: string | null;
   createdAt: number;

@@ -182,7 +182,7 @@ export default function HomePage() {
               </p>
             </div>
             <Button variant="secondary" asChild>
-              <Link href="/solutions">View all 100 playbooks</Link>
+              <Link href="/solutions">View all solution playbooks</Link>
             </Button>
           </div>
           <div className="mt-6 grid gap-3 md:grid-cols-3">

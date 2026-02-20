@@ -40,6 +40,10 @@ export async function generateMetadata({
     description: page.description,
     alternates: {
       canonical: page.path
+    },
+    robots: {
+      index: false,
+      follow: true
     }
   };
 }

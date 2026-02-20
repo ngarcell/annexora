@@ -1,2 +1,2 @@
-name,slug,region
-Germany,germany,EU
+name,slug,region,authority_name,authority_url,language_note,enforcement_note,market_signal
+Germany,germany,EU,Germany AI supervisory authority,https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai,"English-first implementation assets for Germany teams handling EU AI Act controls.","Germany operators should maintain auditable evidence trails for Article 26 and Annex IV obligations.","Germany buyers are prioritizing compliance software and readiness assessments before August 2, 2026."

@@ -33,89 +33,83 @@ const buildPath = (countrySlug: string, industrySlug: string, angleSlug: string)
 
 function buildRegionPages(): RegionPage[] {
   const pages: RegionPage[] = [];
-  const max = 100;
   const seen = new Set<string>();
-  const totalCombos = countries.length * industries.length * angles.length;
 
-  for (let idx = 0; pages.length < max && idx < totalCombos; idx += 1) {
-    const country = countries[idx % countries.length];
-    const industry =
-      industries[Math.floor(idx / countries.length) % industries.length];
-    const angle =
-      angles[
-        Math.floor(idx / (countries.length * industries.length)) % angles.length
-      ];
+  countries.forEach((country) => {
+    industries.forEach((industry) => {
+      angles.forEach((angle) => {
+        const id = `${country.slug}-${industry.slug}-${angle.slug}`;
+        if (seen.has(id)) {
+          return;
+        }
+        seen.add(id);
 
-    const id = `${country.slug}-${industry.slug}-${angle.slug}`;
-    if (seen.has(id)) {
-      continue;
-    }
-    seen.add(id);
+        const title = `EU AI Act compliance in ${country.name} for ${industry.name} | ${angle.name}`;
+        const description = `Country-specific AI Act readiness for ${industry.name.toLowerCase()} teams in ${country.name}, focused on ${angle.focus}.`;
+        const heroTagline = `Align ${industry.name.toLowerCase()} AI systems in ${country.name} with ${angle.focus}.`;
+        const painPoints = [
+          `${industry.name} teams in ${country.name} face ${angle.gap}.`,
+          `Evidence spans ${industry.stakeholders.join(', ')} across ${country.name}.`,
+          `Audits stall when ${angle.focus} is undocumented.`
+        ];
+        const outcomes = [
+          `${angle.outcome} for ${industry.name.toLowerCase()} teams in ${country.name}.`,
+          `Obligations mapped with owners in ${industry.stakeholders.join(', ')}.`,
+          `Audit packs ready for notified body review.`
+        ];
+        const obligations = highRiskObligations.map(
+          (item) => `${item.title}: ${item.description}`
+        );
+        const faq = [
+          {
+            question: `Why is ${industry.name.toLowerCase()} regulated in ${country.name}?`,
+            answer:
+              'The EU AI Act applies across member states and treats these systems as high-risk when they impact fundamental rights.'
+          },
+          {
+            question: `What evidence matters most for ${angle.name.toLowerCase()}?`,
+            answer: `Prioritize ${industry.evidence.join(', ')} and map them to obligations.`
+          },
+          {
+            question: 'How fast can we be audit-ready?',
+            answer:
+              'Most teams can build an audit-ready baseline in weeks with centralized evidence and clear owners.'
+          }
+        ];
 
-    const title = `EU AI Act compliance in ${country.name} for ${industry.name} | ${angle.name}`;
-    const description = `Country-specific AI Act readiness for ${industry.name.toLowerCase()} teams in ${country.name}, focused on ${angle.focus}.`;
-    const heroTagline = `Align ${industry.name.toLowerCase()} AI systems in ${country.name} with ${angle.focus}.`;
-    const painPoints = [
-      `${industry.name} teams in ${country.name} face ${angle.gap}.`,
-      `Evidence spans ${industry.stakeholders.join(', ')} across ${country.name}.`,
-      `Audits stall when ${angle.focus} is undocumented.`
-    ];
-    const outcomes = [
-      `${angle.outcome} for ${industry.name.toLowerCase()} teams in ${country.name}.`,
-      `Obligations mapped with owners in ${industry.stakeholders.join(', ')}.`,
-      `Audit packs ready for notified body review.`
-    ];
-    const obligations = highRiskObligations.map(
-      (item) => `${item.title}: ${item.description}`
-    );
-    const faq = [
-      {
-        question: `Why is ${industry.name.toLowerCase()} regulated in ${country.name}?`,
-        answer:
-          'The EU AI Act applies across member states and treats these systems as high-risk when they impact fundamental rights.'
-      },
-      {
-        question: `What evidence matters most for ${angle.name.toLowerCase()}?`,
-        answer: `Prioritize ${industry.evidence.join(', ')} and map them to obligations.`
-      },
-      {
-        question: 'How fast can we be audit-ready?',
-        answer:
-          'Most teams can build an audit-ready baseline in weeks with centralized evidence and clear owners.'
-      }
-    ];
+        const keywords = [
+          `EU AI Act compliance ${industry.name} ${country.name}`,
+          `${industry.name} AI Act readiness ${country.name}`,
+          `Annex III ${industry.name} compliance ${country.name}`,
+          `${angle.name} for ${industry.name} AI systems in ${country.name}`,
+          `AI Act audit prep ${industry.name} ${country.name}`
+        ];
 
-    const keywords = [
-      `EU AI Act compliance ${industry.name} ${country.name}`,
-      `${industry.name} AI Act readiness ${country.name}`,
-      `Annex III ${industry.name} compliance ${country.name}`,
-      `${angle.name} for ${industry.name} AI systems in ${country.name}`,
-      `AI Act audit prep ${industry.name} ${country.name}`
-    ];
-
-    pages.push({
-      id,
-      country: country.name,
-      countrySlug: country.slug,
-      industry: industry.name,
-      industrySlug: industry.slug,
-      angle: angle.name,
-      angleSlug: angle.slug,
-      path: buildPath(country.slug, industry.slug, angle.slug),
-      title,
-      description,
-      heroTagline,
-      painPoints,
-      outcomes,
-      obligations,
-      evidence: industry.evidence,
-      keywords,
-      faq,
-      ctaLabel: 'Book readiness review',
-      ctaHref: '/book',
-      relatedPaths: []
+        pages.push({
+          id,
+          country: country.name,
+          countrySlug: country.slug,
+          industry: industry.name,
+          industrySlug: industry.slug,
+          angle: angle.name,
+          angleSlug: angle.slug,
+          path: buildPath(country.slug, industry.slug, angle.slug),
+          title,
+          description,
+          heroTagline,
+          painPoints,
+          outcomes,
+          obligations,
+          evidence: industry.evidence,
+          keywords,
+          faq,
+          ctaLabel: 'Book readiness review',
+          ctaHref: '/book',
+          relatedPaths: []
+        });
+      });
     });
-  }
+  });
 
   const unique = new Set(pages.map((page) => page.id));
   if (unique.size !== pages.length) {

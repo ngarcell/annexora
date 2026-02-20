@@ -7,6 +7,7 @@ import { MarketingNav } from '@/components/marketing-nav';
 import { MarketingFooter } from '@/components/marketing-footer';
 import { SeoBreadcrumbJsonLd } from '@/components/seo-breadcrumb-json-ld';
 import { getPseoPage, getPseoPages } from '@/lib/pseo';
+import { isPrioritySolutionSlug } from '@/lib/indexing-policy';
 import { rootDomain, protocol } from '@/lib/utils';
 
 export async function generateStaticParams() {
@@ -33,6 +34,10 @@ export async function generateMetadata({
     description: page.description,
     alternates: {
       canonical: `/solutions/${page.slug}`
+    },
+    robots: {
+      index: isPrioritySolutionSlug(page.slug),
+      follow: true
     }
   };
 }

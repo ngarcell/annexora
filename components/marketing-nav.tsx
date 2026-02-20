@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { BrandLogo } from '@/components/brand-logo';
 
 const navLinks = [
+  { href: '/eu-ai-act', label: 'EU AI Act' },
   { href: '/solutions', label: 'Solutions' },
   { href: '/industries', label: 'Industries' },
   { href: '/regions', label: 'Regions' },

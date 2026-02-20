@@ -17,12 +17,20 @@ export type Industry = {
   evidence: string[];
   stakeholders: string[];
   useCases: string[];
+  highRiskScenarios?: string[];
+  providerRiskPoints?: string[];
+  buyingCommittee?: string[];
 };
 
 export type Country = {
   name: string;
   slug: string;
   region: string;
+  authorityName?: string;
+  authorityUrl?: string;
+  languageNote?: string;
+  enforcementNote?: string;
+  marketSignal?: string;
 };
 
 const csvRoot = path.join(process.cwd(), 'data');
@@ -424,6 +432,9 @@ export function parseIndustriesCsv(records: Record<string, string>[]) {
     const evidence = splitList(record.evidence || '');
     const stakeholders = splitList(record.stakeholders || '');
     const useCases = splitList(record.use_cases || '');
+    const highRiskScenarios = splitList(record.high_risk_scenarios || '');
+    const providerRiskPoints = splitList(record.provider_risk_points || '');
+    const buyingCommittee = splitList(record.buying_committee || '');
 
     industries.push({
       name,
@@ -433,7 +444,12 @@ export function parseIndustriesCsv(records: Record<string, string>[]) {
       stakeholders: stakeholders.length ? stakeholders : ['Compliance'],
       useCases: useCases.length
         ? useCases
-        : ['Employment & workers management']
+        : ['Employment & workers management'],
+      highRiskScenarios: highRiskScenarios.length ? highRiskScenarios : undefined,
+      providerRiskPoints: providerRiskPoints.length
+        ? providerRiskPoints
+        : undefined,
+      buyingCommittee: buyingCommittee.length ? buyingCommittee : undefined
     });
   });
 
@@ -466,7 +482,12 @@ export function parseCountriesCsv(records: Record<string, string>[]) {
     countries.push({
       name,
       slug,
-      region: record.region?.trim() || 'EU'
+      region: record.region?.trim() || 'EU',
+      authorityName: record.authority_name?.trim() || undefined,
+      authorityUrl: record.authority_url?.trim() || undefined,
+      languageNote: record.language_note?.trim() || undefined,
+      enforcementNote: record.enforcement_note?.trim() || undefined,
+      marketSignal: record.market_signal?.trim() || undefined
     });
   });
 

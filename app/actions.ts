@@ -9,6 +9,7 @@ import {
   parseCsvText,
   parseIndustriesCsv
 } from '@/lib/pseo-data';
+import { parseArtifactsCsv, parseIntentsCsv } from '@/lib/high-intent-data';
 import { getStripeClient } from '@/lib/stripe';
 import { sendLeadNotification } from '@/lib/email';
 import fs from 'node:fs/promises';
@@ -261,6 +262,92 @@ export async function addEvidenceAction(
   return { success: true };
 }
 
+type AttributionFields = {
+  landingPath: string;
+  cluster: string;
+  intentSlug: string;
+  role: string;
+  utmSource: string;
+  utmMedium: string;
+  utmCampaign: string;
+  utmTerm: string;
+  gclid: string;
+  referrer: string;
+};
+
+function cleanTrackingValue(value: string, max = 180) {
+  return value.trim().slice(0, max);
+}
+
+function readAttribution(formData: FormData): AttributionFields {
+  const read = (keys: string[]) =>
+    cleanTrackingValue(
+      keys.map((key) => (formData.get(key) as string) || '').find(Boolean) || ''
+    );
+
+  return {
+    landingPath: read(['landingPath', 'landing_path']),
+    cluster: read(['cluster']),
+    intentSlug: read(['intentSlug', 'intent_slug', 'intent']),
+    role: read(['role']),
+    utmSource: read(['utm_source', 'utmSource']),
+    utmMedium: read(['utm_medium', 'utmMedium']),
+    utmCampaign: read(['utm_campaign', 'utmCampaign']),
+    utmTerm: read(['utm_term', 'utmTerm']),
+    gclid: read(['gclid']),
+    referrer: read(['referrer'])
+  };
+}
+
+function scoreLeadIntent(
+  systemCountRaw: string,
+  attribution: AttributionFields
+): number {
+  let score = 35;
+  const systemCount = Number.parseInt(systemCountRaw, 10);
+
+  if (
+    attribution.cluster === 'country-industry-intent-role' ||
+    attribution.cluster === 'country-artifact-role' ||
+    attribution.cluster === 'industry-artifact-role' ||
+    attribution.cluster === 'role-obligation-hub'
+  ) {
+    score += 20;
+  }
+
+  if (['deployer', 'provider'].includes(attribution.role)) {
+    score += 10;
+  }
+
+  if (
+    ['audit-pack', 'conformity-prep', 'technical-documentation'].includes(
+      attribution.intentSlug
+    )
+  ) {
+    score += 15;
+  }
+
+  if (Number.isFinite(systemCount)) {
+    if (systemCount >= 5) {
+      score += 15;
+    } else if (systemCount >= 2) {
+      score += 10;
+    } else {
+      score += 5;
+    }
+  }
+
+  if (attribution.gclid) {
+    score += 10;
+  }
+
+  if (attribution.utmCampaign.toLowerCase().includes('high-intent')) {
+    score += 5;
+  }
+
+  return Math.min(100, score);
+}
+
 export async function createLeadAction(
   prevState: any,
   formData: FormData
@@ -271,6 +358,7 @@ export async function createLeadAction(
   const useCase = ((formData.get('useCase') as string) || '').trim();
   const systemCount = ((formData.get('systemCount') as string) || '').trim();
   const website = ((formData.get('website') as string) || '').trim();
+  const attribution = readAttribution(formData);
 
   if (website) {
     return { success: true };
@@ -288,6 +376,17 @@ export async function createLeadAction(
     company,
     useCase,
     systemCount,
+    landingPath: attribution.landingPath,
+    cluster: attribution.cluster,
+    intentSlug: attribution.intentSlug,
+    role: attribution.role,
+    utmSource: attribution.utmSource,
+    utmMedium: attribution.utmMedium,
+    utmCampaign: attribution.utmCampaign,
+    utmTerm: attribution.utmTerm,
+    gclid: attribution.gclid,
+    referrer: attribution.referrer,
+    intentScore: scoreLeadIntent(systemCount, attribution),
     status: 'new' as const,
     createdAt: Date.now(),
     updatedAt: Date.now()
@@ -359,7 +458,10 @@ export async function uploadIndustriesCsvAction(
     'summary',
     'evidence',
     'stakeholders',
-    'use_cases'
+    'use_cases',
+    'high_risk_scenarios',
+    'provider_risk_points',
+    'buying_committee'
   ];
   const missingHeaders = requiredHeaders.filter(
     (header) => !headers.includes(header)
@@ -381,6 +483,7 @@ export async function uploadIndustriesCsvAction(
 
   revalidatePath('/industries');
   revalidatePath('/regions');
+  revalidatePath('/eu-ai-act');
   revalidatePath('/sitemap.xml');
 
   return { success: true, count: parsed.industries.length };
@@ -402,7 +505,15 @@ export async function uploadCountriesCsvAction(
     return { error: 'CSV must include a header row and at least one entry.' };
   }
 
-  const requiredHeaders = ['name', 'region'];
+  const requiredHeaders = [
+    'name',
+    'region',
+    'authority_name',
+    'authority_url',
+    'language_note',
+    'enforcement_note',
+    'market_signal'
+  ];
   const missingHeaders = requiredHeaders.filter(
     (header) => !headers.includes(header)
   );
@@ -423,9 +534,104 @@ export async function uploadCountriesCsvAction(
 
   revalidatePath('/regions');
   revalidatePath('/industries');
+  revalidatePath('/eu-ai-act');
   revalidatePath('/sitemap.xml');
 
   return { success: true, count: parsed.countries.length };
+}
+
+export async function uploadIntentsCsvAction(
+  prevState: any,
+  formData: FormData
+) {
+  const file = formData.get('file') as File | null;
+  if (!file) {
+    return { error: 'Please upload a CSV file.' };
+  }
+
+  const contents = await file.text();
+  const { headers, records } = parseCsvText(contents);
+
+  if (!headers.length || records.length === 0) {
+    return { error: 'CSV must include a header row and at least one entry.' };
+  }
+
+  const requiredHeaders = [
+    'name',
+    'slug',
+    'execution_focus',
+    'buyer_signal',
+    'cta_label'
+  ];
+  const missingHeaders = requiredHeaders.filter(
+    (header) => !headers.includes(header)
+  );
+  if (missingHeaders.length) {
+    return {
+      error: `Missing required columns: ${missingHeaders.join(', ')}`
+    };
+  }
+
+  const parsed = parseIntentsCsv(records);
+  if (parsed.errors.length) {
+    return { error: parsed.errors.join('; ') };
+  }
+
+  const dataDir = path.join(process.cwd(), 'data');
+  await fs.mkdir(dataDir, { recursive: true });
+  await fs.writeFile(path.join(dataDir, 'intents.csv'), contents, 'utf-8');
+
+  revalidatePath('/eu-ai-act');
+  revalidatePath('/sitemap.xml');
+
+  return { success: true, count: parsed.intents.length };
+}
+
+export async function uploadArtifactsCsvAction(
+  prevState: any,
+  formData: FormData
+) {
+  const file = formData.get('file') as File | null;
+  if (!file) {
+    return { error: 'Please upload a CSV file.' };
+  }
+
+  const contents = await file.text();
+  const { headers, records } = parseCsvText(contents);
+
+  if (!headers.length || records.length === 0) {
+    return { error: 'CSV must include a header row and at least one entry.' };
+  }
+
+  const requiredHeaders = [
+    'name',
+    'slug',
+    'article_reference',
+    'delivery_outcome',
+    'cta_label'
+  ];
+  const missingHeaders = requiredHeaders.filter(
+    (header) => !headers.includes(header)
+  );
+  if (missingHeaders.length) {
+    return {
+      error: `Missing required columns: ${missingHeaders.join(', ')}`
+    };
+  }
+
+  const parsed = parseArtifactsCsv(records);
+  if (parsed.errors.length) {
+    return { error: parsed.errors.join('; ') };
+  }
+
+  const dataDir = path.join(process.cwd(), 'data');
+  await fs.mkdir(dataDir, { recursive: true });
+  await fs.writeFile(path.join(dataDir, 'artifacts.csv'), contents, 'utf-8');
+
+  revalidatePath('/eu-ai-act');
+  revalidatePath('/sitemap.xml');
+
+  return { success: true, count: parsed.artifacts.length };
 }
 
 export async function createPilotCheckoutAction(
@@ -438,6 +644,8 @@ export async function createPilotCheckoutAction(
   const useCase = ((formData.get('useCase') as string) || '').trim();
   const systemCount = ((formData.get('systemCount') as string) || '').trim();
   const website = ((formData.get('website') as string) || '').trim();
+  const attribution = readAttribution(formData);
+  const intentScore = scoreLeadIntent(systemCount, attribution);
 
   if (website) {
     return { success: true };
@@ -466,7 +674,18 @@ export async function createPilotCheckoutAction(
       name,
       company,
       useCase,
-      systemCount
+      systemCount,
+      landingPath: attribution.landingPath,
+      cluster: attribution.cluster,
+      intentSlug: attribution.intentSlug,
+      role: attribution.role,
+      utmSource: attribution.utmSource,
+      utmMedium: attribution.utmMedium,
+      utmCampaign: attribution.utmCampaign,
+      utmTerm: attribution.utmTerm,
+      gclid: attribution.gclid,
+      referrer: attribution.referrer,
+      intentScore: String(intentScore)
     }
   });
 

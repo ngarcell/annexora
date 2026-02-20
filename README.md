@@ -75,9 +75,10 @@ All endpoints expect `tenant` as a query parameter or `x-tenant` header.
 
 ## PSEO Landing Pages
 
-- Use-case playbooks: `/solutions/[slug]` (100 pages)
-- Industry playbooks: `/industries/[slug]` (100 pages)
-- Country + industry playbooks: `/regions/[country]/industries/[industry]/[angle]` (100 pages)
+- Use-case playbooks: `/solutions/[slug]` (generated from use-case × angle matrix)
+- Industry playbooks: `/industries/[slug]` (generated from industry × angle matrix)
+- Country + industry playbooks: `/regions/[country]/industries/[industry]/[angle]` (generated from country × industry × angle matrix)
+- High-intent matrix: `/eu-ai-act/*` (3,888 static pages across role/intent/artifact clusters)
 
 ### CSV-driven lists
 

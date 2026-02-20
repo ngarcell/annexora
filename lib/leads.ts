@@ -7,6 +7,17 @@ export type Lead = {
   company: string;
   useCase: string;
   systemCount: string;
+  landingPath?: string;
+  cluster?: string;
+  intentSlug?: string;
+  role?: string;
+  utmSource?: string;
+  utmMedium?: string;
+  utmCampaign?: string;
+  utmTerm?: string;
+  gclid?: string;
+  referrer?: string;
+  intentScore?: number;
   status: 'new' | 'contacted' | 'qualified' | 'closed';
   createdAt: number;
   updatedAt: number;
