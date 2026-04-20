@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { MarketingNav } from '@/components/marketing-nav';
 import { MarketingFooter } from '@/components/marketing-footer';
 import { SeoBreadcrumbJsonLd } from '@/components/seo-breadcrumb-json-ld';
+import { portfolioContent } from '@/lib/portfolio-content';
 
 export default function TrustPage() {
   return (
@@ -21,6 +22,9 @@ export default function TrustPage() {
           <p className="mt-2 text-sm text-muted-foreground">
             Annexora structures evidence, traceability, and readiness so your AI
             systems are prepared for conformity assessment.
+          </p>
+          <p className="mt-2 text-sm text-muted-foreground">
+            {portfolioContent.relationshipLabel} {portfolioContent.relationshipDescription}
           </p>
           <div className="mt-6 flex flex-wrap gap-3">
             <Button asChild>

@@ -51,11 +51,12 @@ function buildEntries(): MetadataRoute.Sitemap {
   ];
   const tier3 = ESSENTIAL_STATIC_ROUTES;
   const tier4 = prioritySolutionPaths;
-  const tier5 = getPseoPages()
+  const tier5 = ['/jaeger-ai'];
+  const tier6 = getPseoPages()
     .map((page) => `/solutions/${page.slug}`)
     .sort((a, b) => a.localeCompare(b));
 
-  const orderedCandidates = [...tier1, ...tier2, ...tier3, ...tier4, ...tier5];
+  const orderedCandidates = [...tier1, ...tier2, ...tier3, ...tier4, ...tier5, ...tier6];
 
   const picked = new Set<string>();
   const prioritizedPaths: string[] = [];

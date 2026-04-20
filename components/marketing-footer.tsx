@@ -1,10 +1,25 @@
 import Link from 'next/link';
 import { BrandLogo } from '@/components/brand-logo';
+import { portfolioContent } from '@/lib/portfolio-content';
 
 export function MarketingFooter() {
   return (
     <footer className="mt-16 border-t border-border/60 bg-white/90">
       <div className="mx-auto w-full max-w-6xl px-6 py-12">
+        <div className="mb-8 rounded-3xl border border-border/70 bg-[#10263f]/[0.03] p-6">
+          <p className="text-sm font-semibold text-foreground">
+            {portfolioContent.relationshipLabel}
+          </p>
+          <p className="mt-2 max-w-3xl text-sm text-muted-foreground">
+            {portfolioContent.relationshipDescription}
+          </p>
+          <Link
+            href={portfolioContent.parentPageUrl}
+            className="mt-3 inline-flex text-sm font-semibold text-foreground underline-offset-4 hover:underline"
+          >
+            {portfolioContent.readLinkLabel}
+          </Link>
+        </div>
         <div className="grid gap-8 md:grid-cols-4">
           <div>
             <BrandLogo compact />

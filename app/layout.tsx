@@ -1,6 +1,8 @@
 import type { Metadata, Viewport } from 'next';
 import { Bricolage_Grotesque, Manrope } from 'next/font/google';
 import { SpeedInsights } from '@vercel/speed-insights/next';
+import { protocol, rootDomain } from '@/lib/utils';
+import { portfolioContent } from '@/lib/portfolio-content';
 import './globals.css';
 
 const headingFont = Bricolage_Grotesque({
@@ -13,13 +15,14 @@ const bodyFont = Manrope({
   subsets: ['latin']
 });
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://annexora.com';
+const siteDescription =
+  'Audit-ready compliance for Annex III AI systems. Inventory, risk classification, obligation mapping, evidence vaults, and audit packs. Annexora is part of the Jaeger AI platform portfolio.';
+
 export const metadata: Metadata = {
-  metadataBase: new URL(
-    process.env.NEXT_PUBLIC_SITE_URL || 'https://annexora.com'
-  ),
+  metadataBase: new URL(siteUrl),
   title: 'Annexora | EU AI Act Compliance OS',
-  description:
-    'Audit-ready compliance for Annex III AI systems. Inventory, risk classification, obligation mapping, evidence vaults, and audit packs.',
+  description: siteDescription,
   icons: {
     icon: [
       { url: '/favicon.ico?v=2', sizes: 'any' },
@@ -36,8 +39,7 @@ export const metadata: Metadata = {
     type: 'website',
     siteName: 'Annexora',
     title: 'Annexora | EU AI Act Compliance OS',
-    description:
-      'Audit-ready compliance for Annex III AI systems. Inventory, risk classification, obligation mapping, evidence vaults, and audit packs.',
+    description: siteDescription,
     images: [
       {
         url: '/opengraph-image',
@@ -50,8 +52,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Annexora | EU AI Act Compliance OS',
-    description:
-      'Audit-ready compliance for Annex III AI systems. Inventory, risk classification, obligation mapping, evidence vaults, and audit packs.',
+    description: siteDescription,
     images: ['/twitter-image']
   }
 };
@@ -68,11 +69,44 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const origin = `${protocol}://${rootDomain}`;
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'Organization',
+        '@id': `${origin}/#organization`,
+        name: 'Annexora',
+        url: origin,
+        description: siteDescription,
+        parentOrganization: {
+          '@type': 'Organization',
+          name: portfolioContent.parentOrganizationName,
+          url: `${origin}${portfolioContent.parentPageUrl}`
+        }
+      },
+      {
+        '@type': 'WebSite',
+        '@id': `${origin}/#website`,
+        name: 'Annexora',
+        url: origin,
+        description: siteDescription,
+        publisher: {
+          '@id': `${origin}/#organization`
+        }
+      }
+    ]
+  };
+
   return (
     <html lang="en">
       <body
         className={`${headingFont.variable} ${bodyFont.variable} antialiased`}
       >
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
         {children}
         <SpeedInsights />
       </body>

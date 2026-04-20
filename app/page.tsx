@@ -9,6 +9,7 @@ import { getFeaturedPseoPages } from '@/lib/pseo';
 import { getFeaturedIndustryPages } from '@/lib/industry-pseo';
 import { getRegionCountries } from '@/lib/region-pseo';
 import { rootDomain } from '@/lib/utils';
+import { portfolioContent } from '@/lib/portfolio-content';
 
 export default function HomePage() {
   const featuredSolutions = getFeaturedPseoPages(9);
@@ -45,6 +46,9 @@ export default function HomePage() {
             <p className="text-sm text-muted-foreground">
               You don’t decide if a system is compliant. You make compliance
               review possible, fast, and defensible.
+            </p>
+            <p className="text-sm text-muted-foreground">
+              {portfolioContent.relationshipLabel} {portfolioContent.relationshipDescription}
             </p>
             <div className="flex flex-wrap gap-4">
               <Button size="lg" asChild>

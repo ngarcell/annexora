@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { BrandLogo } from '@/components/brand-logo';
+import { portfolioContent } from '@/lib/portfolio-content';
 
 const navLinks = [
   { href: '/eu-ai-act', label: 'EU AI Act' },
@@ -16,10 +17,21 @@ export function MarketingNav() {
   const bookingUrl = process.env.NEXT_PUBLIC_BOOKING_URL;
   return (
     <header className="relative z-10 border-b border-border/60 bg-white/80 backdrop-blur">
+      <div className="border-b border-border/60 bg-[#10263f]/[0.04]">
+        <div className="mx-auto flex w-full max-w-6xl items-center justify-end px-6 py-2">
+          <Link
+            href={portfolioContent.parentPageUrl}
+            className="text-xs font-semibold text-muted-foreground transition-colors hover:text-foreground"
+          >
+            {portfolioContent.learnLinkLabel}
+          </Link>
+        </div>
+      </div>
       <div className="mx-auto flex w-full max-w-6xl items-center justify-between px-6 py-5">
         <Link
           href="/"
           className="rounded-xl px-1 py-1 transition hover:bg-muted/40"
+          aria-label="Annexora home, part of Jaeger AI"
         >
           <BrandLogo />
         </Link>
